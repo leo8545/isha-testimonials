@@ -1,16 +1,16 @@
 # Isha Testimonials
 
-## WordPress plugin for testimonials
+A WordPress plugin for testimonials
 
 Show testimonials as a slider via a shortcode.
 
 ```
-[js_testimonials]
+[isha_testimonials]
 ```
 
-## Attributes
+### Attributes
 
-### Ids of the categories
+Ids of the testimonials categories as a comma separated string
 
 ```
 cats

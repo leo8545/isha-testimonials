@@ -67,7 +67,7 @@ final class Isha_Testimonials
 		$public = new Isha_Test_Public;
 		add_action('wp_enqueue_scripts', [$public, 'enqueue_styles']);
 		add_action('wp_enqueue_scripts', [$public, 'enqueue_scripts']);
-		add_shortcode('js_testimonials', [$public, 'shortcode_callback']);
+		add_shortcode('isha_testimonials', [$public, 'shortcode_callback']);
 	}
 
 	/**
