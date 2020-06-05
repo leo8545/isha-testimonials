@@ -1,8 +1,20 @@
 <?php
 /**
+ * Isha Testimonials
+ * 
+ * @package 	IshaTestimonials
+ * @author 		Sharjeel Ahmad
+ * @copyright 	2020 Sharjeel Ahmad
+ * @license		GPL-2.0
+ * 
  * Plugin Name: Isha Testimonials
- * Author: Sharjeel Ahmad
- * Description: A testimonial carousal. Display anywhere via shortcode [js_testimonials]. Optional attribute: cats (ids of testimonial categories)
+ * Description: A testimonial carousal. Display anywhere via shortcode [isha_testimonials]. Optional attribute: cats (ids of testimonial categories)
+ * Version: 	1.0.0
+ * Author: 		Sharjeel Ahmad
+ * Author URI: 	https://github.com/leo8545
+ * Text Domain: ishat
+ * License:     GPL v2
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 // Exit if accessed directly
@@ -23,10 +35,31 @@ final class Isha_Testimonials
 {
 	public function __construct()
 	{
+		register_activation_hook(__FILE__, [$this, 'activate']);
+		register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+
 		$this->load_dep();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
+
+	/**
+	 * Activator on plugin activation
+	 *
+	 * @return void
+	 */
+	public function activate()
+	{
+		update_option('rewrite_rules', '');
+	}
+
+	/**
+	 * Deactivator on plugin activation
+	 *
+	 * @return void
+	 */
+	public function deactivate() 
+	{}
 
 	/**
 	 * Load dependencies
