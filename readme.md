@@ -4,10 +4,14 @@
 
 Show testimonials as a slider via a shortcode.
 
-`[js_testimonials]`
+```
+[js_testimonials]
+```
 
 ## Attributes
 
 ### Ids of the categories
 
-`cats`
+```
+cats
+```

@@ -5,8 +5,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Main class for admin side
+ * @since 1.0.0
+ */
 class Isha_Test_Admin
 {
+	/**
+	 * Register post types: isha_testimonials
+	 *
+	 * @return void
+	 */
 	public static function register_post_types()
 	{
 		$args = [
@@ -27,6 +36,11 @@ class Isha_Test_Admin
 		register_post_type('isha_testimonials', $args);
 	}
 
+	/**
+	 * Register taxonomies: isha_testimonials_cat
+	 *
+	 * @return void
+	 */
 	public static function register_taxonomies()
 	{
 		register_taxonomy('isha_testimonial_cat', 'isha_testimonials', [
@@ -36,6 +50,11 @@ class Isha_Test_Admin
 		]);
 	}
 
+	/**
+	 * Adds metabox to isha_testimonials screen
+	 *
+	 * @return void
+	 */
 	public static function add_metaboxes()
 	{
 		add_meta_box(
@@ -46,6 +65,12 @@ class Isha_Test_Admin
 		);
 	}
 
+	/**
+	 * Callback function of metabox: ishat_testimonials_author
+	 *
+	 * @param WP_POST $post
+	 * @return void
+	 */
 	public static function ishat_testimonial_author_callback($post)
 	{
 		$ishat = get_post_meta($post->ID, 'ishat', true);
@@ -65,6 +90,12 @@ class Isha_Test_Admin
 		<?php
 	}
 
+	/**
+	 * Save metaboxes fields
+	 *
+	 * @param integer $post_id
+	 * @return void
+	 */
 	public static function save_metaboxes($post_id)
 	{
 		if(array_key_exists('ishat', $_POST)) {
