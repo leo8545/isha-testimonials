@@ -52,11 +52,12 @@ class Isha_Test_Public
 		if( strlen($atts['cats']) !== 0 ) {
 			$t_cats = explode(',', $atts['cats']);
 			foreach($t_cats as $cat) {
-				$testimonials[$cat] = self::get_testimonials_by_cat($cat);
+				$testimonials[$cat] = self::get_testimonials('category', $cat);
 			}
 		} else if ( strlen($atts['ids'] !== 0) ) {
+			// Get testimonials by testimonials ids
 			$t_ids = explode(',', $atts['ids']);
-			$testimonials[] = self::get_testimonials_by_ids($t_ids);
+			$testimonials[] = self::get_testimonials('ids', $t_ids);
 		} else {
 			// Get all testimonials
 			$testimonials[] = self::get_testimonials();
@@ -69,43 +70,34 @@ class Isha_Test_Public
 	}
 
 	/**
-	 * Get testimonials by category id
+	 * Get testimonials
+	 * 
+	 * If no argument is supplied, then it gets all testimonials
 	 *
-	 * @param integer $cat_id
-	 * @return array Array of testimonials by category id
-	 */
-	public static function get_testimonials_by_cat($cat_id)
-	{
-		return get_posts([
-			'posts_per_page' => -1,
-			'post_type' => 'isha_testimonials',
-			'tax_query' => [[
-				'taxonomy' => 'isha_testimonial_cat',
-				'field' => 'term_id',
-				'terms' => $cat_id
-			]]
-		]);
-	}
-
-	public static function get_testimonials_by_ids(array $ids)
-	{
-		return get_posts([
-			'posts_per_page' => -1,
-			'post_type' => 'isha_testimonials',
-			'include' => $ids
-		]);
-	}
-
-	/**
-	 * Get all testimonials
-	 *
+	 * @param string $field Field name (Available: ids, category)
+	 * @param mixed $value Value of the field
+	 * 
 	 * @return array Array of testimonials
 	 */
-	public static function get_testimonials()
+	public static function get_testimonials(string $field = '', $value = null)
 	{
-		return get_posts([
+		$args = [
 			'posts_per_page' => -1,
 			'post_type' => 'isha_testimonials'
-		]);
+		];
+
+		if( $field == 'category' ) {
+			$args['tax_query'] = [[
+				'taxonomy' => 'isha_testimonial_cat',
+				'field' => 'term_id',
+				'terms' => $value
+			]];
+		}
+
+		if( $field == 'ids' ) {
+			$args['include'] = $value;
+		}
+
+		return get_posts($args);
 	}
 }
