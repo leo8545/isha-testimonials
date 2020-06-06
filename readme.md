@@ -10,8 +10,14 @@ Show testimonials as a slider via a shortcode.
 
 ### Attributes
 
-Ids of the testimonials categories as a comma separated string
+Slugs of the testimonials categories as a comma separated string
 
 ```
 cats
+```
+
+Ids of the testimonials as a comma separated string
+
+```
+ids
 ```

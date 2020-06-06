@@ -89,7 +89,7 @@ class Isha_Test_Public
 		if( $field == 'category' ) {
 			$args['tax_query'] = [[
 				'taxonomy' => 'isha_testimonial_cat',
-				'field' => 'term_id',
+				'field' => 'slug',
 				'terms' => $value
 			]];
 		}
