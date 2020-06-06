@@ -84,6 +84,7 @@ final class Isha_Testimonials
 		$admin = new Isha_Test_Admin;
 		add_action('init', [$admin, 'register_post_types']);
 		add_action('init', [$admin, 'register_taxonomies'], 0);
+		add_action('admin_enqueue_scripts', [$admin, 'enqueue_styles']);
 		add_action('add_meta_boxes', [$admin, 'add_metaboxes']);
 		add_action('save_post', [$admin, 'save_metaboxes']);
 		add_filter('manage_isha_testimonials_posts_columns', [$admin, 'manage_testimonials_column'], 10, 1);
