@@ -42,7 +42,8 @@ class Isha_Test_Public
 	public static function shortcode_callback($atts)
 	{
 		$atts = shortcode_atts([
-			'cats' => ""
+			'cats' => "",
+			'ids' => ""
 		], $atts);
 
 		$testimonials = [];
@@ -53,6 +54,9 @@ class Isha_Test_Public
 			foreach($t_cats as $cat) {
 				$testimonials[$cat] = self::get_testimonials_by_cat($cat);
 			}
+		} else if ( strlen($atts['ids'] !== 0) ) {
+			$t_ids = explode(',', $atts['ids']);
+			$testimonials[] = self::get_testimonials_by_ids($t_ids);
 		} else {
 			// Get all testimonials
 			$testimonials[] = self::get_testimonials();
@@ -80,6 +84,15 @@ class Isha_Test_Public
 				'field' => 'term_id',
 				'terms' => $cat_id
 			]]
+		]);
+	}
+
+	public static function get_testimonials_by_ids(array $ids)
+	{
+		return get_posts([
+			'posts_per_page' => -1,
+			'post_type' => 'isha_testimonials',
+			'include' => $ids
 		]);
 	}
 
