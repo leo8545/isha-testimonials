@@ -19,13 +19,13 @@ class Isha_Test_Admin
 	public static function register_post_types()
 	{
 		$args = [
-			'labels' => ['name' => 'JS Testimonials'],
+			'labels'				=> 		['name' => 'Isha Testimonials'],
 			'public'             	=> 		true,
 			'publicly_queryable' 	=> 		true,
 			'show_ui'            	=> 		true,
 			'show_in_menu'       	=> 		true,
 			'query_var'          	=> 		true,
-			'rewrite'            	=> 		[ 'slug' => 'js_testimonials'],
+			'rewrite'            	=> 		['slug' => 'isha_testimonials'],
 			'capability_type'    	=> 		'post',
 			'has_archive'        	=> 		true,
 			'hierarchical'       	=> 		false,
@@ -100,6 +100,35 @@ class Isha_Test_Admin
 	{
 		if(array_key_exists('ishat', $_POST)) {
 			update_post_meta($post_id, 'ishat', $_POST['ishat']);
+		}
+	}
+
+	public static function manage_testimonials_column($columns)
+	{
+		$new_columns = [
+			'cb' => $columns['cb'],
+			'title' => $columns['title'],
+			'isha_content' => 'Content',
+			'isha_author' => 'Author',
+			'date' => $columns['date']
+		];
+		return $new_columns;
+	}
+
+	public static function manage_testimonials_custom_column($column, $post_id)
+	{
+		if( $column == 'isha_author' ) {
+			$ishat = get_post_meta($post_id, 'ishat', true);
+			if(@$ishat) {
+				echo $ishat['author'];
+			}
+		}
+
+		if( $column == 'isha_content' ) {
+			$isha_post = get_post($post_id);
+			if($isha_post instanceof WP_Post) {
+				echo substr($isha_post->post_content, 0, 20) . '...';
+			}
 		}
 	}
 }

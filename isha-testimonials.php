@@ -2,9 +2,9 @@
 /**
  * Isha Testimonials
  * 
- * @package 	IshaTestimonials
- * @author 		Sharjeel Ahmad
- * @copyright 	2020 Sharjeel Ahmad
+ * @package		IshaTestimonials
+ * @author		Sharjeel Ahmad
+ * @copyright	2020 Sharjeel Ahmad
  * @license		GPL-2.0
  * 
  * Plugin Name: Isha Testimonials
@@ -86,6 +86,8 @@ final class Isha_Testimonials
 		add_action('init', [$admin, 'register_taxonomies'], 0);
 		add_action('add_meta_boxes', [$admin, 'add_metaboxes']);
 		add_action('save_post', [$admin, 'save_metaboxes']);
+		add_filter('manage_isha_testimonials_posts_columns', [$admin, 'manage_testimonials_column'], 10, 1);
+		add_action('manage_isha_testimonials_posts_custom_column', [$admin, 'manage_testimonials_custom_column'], 10, 2);
 
 		add_action('plugins_loaded', [$this, 'set_locale']);
 	}
